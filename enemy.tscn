@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://cuqcsnmh2d4oj"]
+
+[ext_resource type="PackedScene" uid="uid://de4fnq1qmxaaf" path="res://hunter.tscn" id="1_0eluo"]
+
+[sub_resource type="GDScript" id="GDScript_quhxe"]
+resource_name = "enemy"
+script/source = "extends Area3D
+
+
+func _ready():
+	name = \"Enemy\"
+	set_meta('type', 'Enemy')
+
+var SPEED = 0.01
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	position.y -= SPEED
+	if position.y < 4:
+		delete()
+
+
+func _on_body_entered(body):
+	if body.name == \"Player\":
+		delete()
+
+
+func delete():
+	$\"../Player\".HealPointPlayer -= 1
+	$\"..\".enemyCounter -= 1
+	queue_free()
+
+func kill():
+	$\"..\".enemyCounter -= 1
+	queue_free()
+	$\"../Player\".score += 100
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ttuu5"]
+size = Vector3(5.25158, 10.0868, 1.1897)
+
+[node name="Enemy" type="Area3D"]
+script = SubResource("GDScript_quhxe")
+
+[node name="hunter" parent="." instance=ExtResource("1_0eluo")]
+transform = Transform3D(0.237, 0, 0, 0, 0.237, 0, 0, 0, 0.237, 0, 0.573571, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.237, 0, 0, 0, 0.237, 0, 0, 0, 0.237, -0.00166885, 0.12629, 0.00107043)
+shape = SubResource("BoxShape3D_ttuu5")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

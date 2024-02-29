@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://dj0yjrijyv87"]
+
+[ext_resource type="PackedScene" uid="uid://dfsxb8regvbti" path="res://bulet.tscn" id="1_2iu1q"]
+
+[sub_resource type="GDScript" id="GDScript_16cvh"]
+resource_name = "Bullet"
+script/source = "extends Area3D
+
+func _ready():
+	name = \"Bullet\"
+	set_meta('type', 'Bullet')
+	
+var SPEED = 0.05
+
+func _process(delta):
+	position.y += SPEED
+	if position.y >= 10:
+		queue_free()
+		$\"../Player\".score -= 10
+
+func _on_area_entered(area):
+	if area.get_meta(\"type\", \"none\") == \"Enemy\":
+		area.kill()
+		queue_free()
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l0gqj"]
+size = Vector3(0.890564, 0.765137, 1.13118)
+
+[node name="Bullet" type="Area3D"]
+transform = Transform3D(0.319025, 0, 0, 0, 1, 0, 0, 0, 0.240695, 0, 0, 0)
+script = SubResource("GDScript_16cvh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0260925, -0.0349121, 0.0160302)
+shape = SubResource("BoxShape3D_l0gqj")
+
+[node name="Bullet" parent="." instance=ExtResource("1_2iu1q")]
+transform = Transform3D(0.480856, 0, 0, 0, -2.62235e-08, 0.187814, 0, -0.599925, -8.20961e-09, 0, 0.150944, 0)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

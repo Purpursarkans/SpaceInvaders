@@ -1,0 +1,62 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmkcj2im1fw6o"]
+
+[sub_resource type="GDScript" id="GDScript_rvnvp"]
+resource_name = "GameOverMenu"
+script/source = "extends Control
+
+
+func _on_restart_button_down():
+	get_tree().reload_current_scene()
+
+
+func _on_menu_button_down():
+	get_tree().change_scene_to_file(\"res://main_menu.tscn\")
+"
+
+[node name="GameOverMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_rvnvp")
+
+[node name="Restart" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.268229
+anchor_top = 0.438272
+anchor_right = 0.421007
+anchor_bottom = 0.578704
+text = "Restart
+"
+
+[node name="Menu" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.579861
+anchor_top = 0.439815
+anchor_right = 0.732639
+anchor_bottom = 0.580247
+text = "Menu"
+metadata/_edit_use_anchors_ = true
+
+[node name="Game Over" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.357639
+anchor_top = 0.146605
+anchor_right = 0.629136
+anchor_bottom = 0.274205
+offset_right = -225.765
+offset_bottom = -59.685
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3.595, 3.595)
+text = "Game Over"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="button_down" from="Restart" to="." method="_on_restart_button_down"]
+[connection signal="button_down" from="Menu" to="." method="_on_menu_button_down"]

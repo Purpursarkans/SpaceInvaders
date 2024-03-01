@@ -61,7 +61,7 @@ func _ready():
 	get_tree().paused = false
 
 func _process(delta):
-	if $Player.HealPointPlayer <= 0:
+	if int($Player/HPcount.text) <= 0:
 		get_tree().paused = true
 		$GameOverMenu.show()
 		
@@ -101,14 +101,11 @@ script/source = "extends CharacterBody3D
 
 const BULLET = preload(\"res://bullet.tscn\")
 
-const SPEED = 3.0
+const SPEED = 100.0
 var HealPointPlayer = 3
 
 var score = 0
 
-func zeroSpeed():
-	velocity.x = move_toward(velocity.x, 0, SPEED)
-	velocity.y = move_toward(velocity.y, 0, SPEED)
 
 var shootgun : bool = true
 
@@ -124,8 +121,6 @@ func _physics_process(delta):
 			BulletInst.position = $Bullet2.global_position
 		shootgun = !shootgun
 		BulletInst.position.z = -5
-		print_debug(BulletInst.position)
-		
 		BulletInst.scale = Vector3(0.015,0.046,0.011)
 		$\"../\".add_child.call_deferred(BulletInst)
 		
@@ -141,10 +136,11 @@ func _physics_process(delta):
 		direction.x = 1
 	
 	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.y = direction.y * SPEED
+		velocity.x = direction.x * SPEED * delta
+		velocity.y = direction.y * SPEED * delta
 	else:
-		zeroSpeed()
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.y = move_toward(velocity.y, 0, SPEED)
 #endregion
 
 	move_and_slide()

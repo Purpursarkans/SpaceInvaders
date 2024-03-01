@@ -10,10 +10,10 @@ func _ready():
 	name = \"Bullet\"
 	set_meta('type', 'Bullet')
 	
-var SPEED = 0.05
+var SPEED = 1.5
 
 func _process(delta):
-	position.y += SPEED
+	position.y += SPEED * delta
 	if position.y >= 10:
 		queue_free()
 		$\"../Player\".score -= 10

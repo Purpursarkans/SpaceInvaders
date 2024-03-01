@@ -11,11 +11,11 @@ func _ready():
 	name = \"Enemy\"
 	set_meta('type', 'Enemy')
 
-var SPEED = 0.01
+var SPEED = 0.5
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	position.y -= SPEED
+	position.y -= SPEED * delta
 	if position.y < 4:
 		delete()
 

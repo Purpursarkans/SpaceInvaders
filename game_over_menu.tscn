@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dmkcj2im1fw6o"]
+[gd_scene load_steps=3 format=3 uid="uid://dmkcj2im1fw6o"]
+
+[ext_resource type="AudioStream" uid="uid://d2duak8aym5k0" path="res://sounds/game over.ogg" id="1_478tn"]
 
 [sub_resource type="GDScript" id="GDScript_rvnvp"]
 resource_name = "GameOverMenu"
@@ -57,6 +59,9 @@ grow_vertical = 2
 scale = Vector2(3.595, 3.595)
 text = "Game Over"
 metadata/_edit_use_anchors_ = true
+
+[node name="GameOverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_478tn")
 
 [connection signal="button_down" from="Restart" to="." method="_on_restart_button_down"]
 [connection signal="button_down" from="Menu" to="." method="_on_menu_button_down"]

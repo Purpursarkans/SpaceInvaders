@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dj0yjrijyv87"]
+[gd_scene load_steps=5 format=3 uid="uid://dj0yjrijyv87"]
 
 [ext_resource type="PackedScene" uid="uid://dfsxb8regvbti" path="res://bulet.tscn" id="1_2iu1q"]
+[ext_resource type="AudioStream" uid="uid://2tv7doiwleki" path="res://sounds/shoot.ogg" id="2_xsy5l"]
 
 [sub_resource type="GDScript" id="GDScript_16cvh"]
 resource_name = "Bullet"
@@ -37,5 +38,9 @@ shape = SubResource("BoxShape3D_l0gqj")
 
 [node name="Bullet" parent="." instance=ExtResource("1_2iu1q")]
 transform = Transform3D(0.480856, 0, 0, 0, -2.62235e-08, 0.187814, 0, -0.599925, -8.20961e-09, 0, 0.150944, 0)
+
+[node name="Shot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_xsy5l")
+autoplay = true
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

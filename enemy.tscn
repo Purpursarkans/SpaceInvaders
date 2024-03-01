@@ -26,14 +26,16 @@ func _on_body_entered(body):
 
 
 func delete():
-	$\"../Player\".HealPointPlayer -= 1
+	$\"../\".getHitPlayer()
 	$\"..\".enemyCounter -= 1
 	queue_free()
 
 func kill():
+	$\"../\".EnemyDead()
 	$\"..\".enemyCounter -= 1
 	queue_free()
 	$\"../Player\".score += 100
+
 "
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ttuu5"]
